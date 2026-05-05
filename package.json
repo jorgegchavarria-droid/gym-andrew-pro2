@@ -1,0 +1,34 @@
+{
+  "name": "gym-andrew-pro",
+  "version": "1.0.0",
+  "description": "PROGRAMA DE GYM PARA ANDREW - Aplicación completa de entrenamiento personalizado",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8080",
+    "serve": "http-server . -p 8080 -c-1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gym",
+    "fitness",
+    "workout",
+    "training",
+    "exercise",
+    "health",
+    "spanish",
+    "andrew"
+  ],
+  "author": "Andrew's Gym Program",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrew/gym-program.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andrew/gym-program/issues"
+  },
+  "homepage": "https://github.com/andrew/gym-program#readme",
+  "engines": {
+    "node": "24.x"
+  }
+}
