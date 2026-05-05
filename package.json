@@ -1,0 +1,42 @@
+{
+  "name": "gym-andrew-pro",
+  "version": "1.0.0",
+  "description": "PROGRAMA DE GYM PARA ANDREW - Aplicación completa de entrenamiento personalizado",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8080",
+    "build": "npm run minify-css && npm run minify-js",
+    "minify-css": "cleancss -o styles.min.css styles.css",
+    "minify-js": "terser script.js -o script.min.js --compress --mangle",
+    "serve": "http-server . -p 8080 -c-1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gym",
+    "fitness",
+    "workout",
+    "training",
+    "exercise",
+    "health",
+    "spanish",
+    "andrew"
+  ],
+  "author": "Andrew's Gym Program",
+  "license": "MIT",
+  "devDependencies": {
+    "clean-css-cli": "^5.3.2",
+    "terser": "^5.19.2",
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrew/gym-program.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andrew/gym-program/issues"
+  },
+  "homepage": "https://github.com/andrew/gym-program#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

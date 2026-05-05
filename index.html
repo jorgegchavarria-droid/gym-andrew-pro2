@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Programa de gym personalizado para Andrew - Rutinas completas para empezar desde cero">
+    <meta name="keywords" content="gym, entrenamiento, rutinas, fitness, ejercicio">
+    <meta name="author" content="Andrew's Gym Program">
+    <meta name="robots" content="index, follow">
+    <title>PROGRAMA DE GYM PARA ANDREW</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <!-- Fallback for Tailwind CSS -->
+    <script>
+        // Fallback if Tailwind CDN fails
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName === 'LINK' && e.target.href.includes('tailwindcss')) {
+                var fallback = document.createElement('style');
+                fallback.innerHTML = 'body{font-family:system-ui,sans-serif;margin:0;padding:20px}.container{max-width:1200px;margin:0 auto}.bg-white{background:#fff}.rounded-lg{border-radius:8px}.shadow-lg{box-shadow:0 10px 15px -3px rgba(0,0,0,0.1)}.p-6{padding:24px}.mb-6{margin-bottom:24px}.text-3xl{font-size:30px}.font-bold{font-weight:700}.text-gray-800{color:#1f2937}.grid{display:grid}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.gap-6{gap:24px}.text-center{text-align:center}.bg-blue-50{background:#eff6ff}.text-blue-600{color:#2563eb}.text-4xl{font-size:36px}.mb-3{margin-bottom:12px}.text-lg{font-size:18px}.text-gray-600{color:#4b5563}.text-sm{font-size:14px}.bg-green-50{background:#f0fdf4}.text-green-600{color:#16a34a}.bg-purple-50{background:#faf5ff}.text-purple-600{color:#9333ea}.bg-yellow-50{background:#fefce8}.border-l-4{border-left-width:4px}.border-yellow-400{border-color:#facc15}.p-4{padding:16px}.flex{display:flex}.items-center{align-items:center}.justify-between{justify-content:space-between}.ml-3{margin-left:12px}.text-yellow-700{color:#a16207}.bg-gradient-to-r{background-image:linear-gradient(to right,var(--tw-gradient-stops))}.from-blue-600{--tw-gradient-from:#2563eb}.to-purple-600{--tw-gradient-to:#9333ea}.text-white{color:#fff}.px-8{padding-left:32px;padding-right:32px}.py-3{padding-top:12px;padding-bottom:12px}.rounded-lg{border-radius:8px}.font-semibold{font-weight:600}.hover\:shadow-lg:hover{box-shadow:0 20px 25px -5px rgba(0,0,0,0.1)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.hidden{display:none}.section{display:none}.section:not(.hidden){display:block}.bg-gray-50{background:#f9fafb}.shadow-lg{box-shadow:0 10px 15px -3px rgba(0,0,0,0.1)}.container{max-width:1200px;margin:0 auto}.px-4{padding-left:16px;padding-right:16px}.py-8{padding-top:32px;padding-bottom:32px}.mb-8{margin-bottom:32px}';
+                document.head.appendChild(fallback);
+            }
+        }, true);
+    </script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Security headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+</head>
+<body class="bg-gray-50" id="app-body">
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="loading-spinner"></div>
+            <p class="mt-4 text-gray-600">Cargando tu programa de gym...</p>
+        </div>
+    </div>
+    
+    <!-- Error Boundary -->
+    <div id="errorBoundary" class="fixed inset-0 bg-red-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-lg p-8 max-w-md mx-4">
+            <div class="text-center">
+                <i class="fas fa-exclamation-triangle text-4xl text-red-600 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Ha ocurrido un error</h3>
+                <p class="text-gray-600 mb-4">Por favor, recarga la página para continuar.</p>
+                <button onclick="location.reload()" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+                    Recargar Página
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-dumbbell text-3xl"></i>
+                    <h1 class="text-2xl font-bold">PROGRAMA DE GYM PARA ANDREW</h1>
+                </div>
+                <nav class="hidden md:flex space-x-6" role="navigation" aria-label="Main navigation">
+                    <button onclick="showSection('dashboard')" class="nav-btn hover:text-blue-200 transition" aria-label="Ir al Dashboard" tabindex="0">Dashboard</button>
+                    <button onclick="showSection('routines')" class="nav-btn hover:text-blue-200 transition" aria-label="Ver Rutinas" tabindex="0">Rutinas</button>
+                    <button onclick="showSection('exercises')" class="nav-btn hover:text-blue-200 transition" aria-label="Ver Ejercicios" tabindex="0">Ejercicios</button>
+                    <button onclick="showSection('progress')" class="nav-btn hover:text-blue-200 transition" aria-label="Ver Progreso" tabindex="0">Progreso</button>
+                </nav>
+                <button id="mobileMenuBtn" class="md:hidden" aria-label="Toggle mobile menu" tabindex="0">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white md:hidden" role="navigation" aria-label="Mobile navigation">
+        <div class="container mx-auto px-4 py-3 space-y-2">
+            <button onclick="showSection('dashboard')" class="block w-full text-left py-2 hover:text-blue-200" aria-label="Ir al Dashboard" tabindex="0">Dashboard</button>
+            <button onclick="showSection('routines')" class="block w-full text-left py-2 hover:text-blue-200" aria-label="Ver Rutinas" tabindex="0">Rutinas</button>
+            <button onclick="showSection('exercises')" class="block w-full text-left py-2 hover:text-blue-200" aria-label="Ver Ejercicios" tabindex="0">Ejercicios</button>
+            <button onclick="showSection('progress')" class="block w-full text-left py-2 hover:text-blue-200" aria-label="Ver Progreso" tabindex="0">Progreso</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section">
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Bienvenido Andrew</h2>
+                <p class="text-gray-600 mb-8">Tu programa personalizado de gym para empezar desde cero</p>
+                
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-blue-50 rounded-lg p-6 text-center">
+                        <i class="fas fa-calendar-alt text-4xl text-blue-600 mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">Rutina Semanal</h3>
+                        <p class="text-gray-600 text-sm">3 días de entrenamiento</p>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-6 text-center">
+                        <i class="fas fa-fire text-4xl text-green-600 mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">Calorías Quemadas</h3>
+                        <p class="text-gray-600 text-sm">Esta semana: <span id="weeklyCalories">0</span></p>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-6 text-center">
+                        <i class="fas fa-trophy text-4xl text-purple-600 mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">Días Consecutivos</h3>
+                        <p class="text-gray-600 text-sm"><span id="streakDays">0</span> días</p>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-yellow-400"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-yellow-700">
+                                <strong>Consejo del día:</strong> Recuerda calentar siempre antes de entrenar y estirar al final para evitar lesiones.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="showSection('routines')" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">
+                        Empezar Mi Entrenamiento
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Routines Section -->
+        <section id="routines" class="section hidden">
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Rutinas de Entrenamiento</h2>
+                
+                <div class="mb-6">
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterRoutines('beginner')" class="routine-filter bg-blue-600 text-white px-4 py-2 rounded-lg">Principiante</button>
+                        <button onclick="filterRoutines('intermediate')" class="routine-filter bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Intermedio</button>
+                        <button onclick="filterRoutines('advanced')" class="routine-filter bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Avanzado</button>
+                    </div>
+                </div>
+
+                <div id="routinesList" class="grid md:grid-cols-2 gap-6">
+                    <!-- Routines will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercises Section -->
+        <section id="exercises" class="section hidden">
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Biblioteca de Ejercicios</h2>
+                
+                <div class="mb-6">
+                    <input type="text" id="exerciseSearch" placeholder="Buscar ejercicios..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Buscar ejercicios" autocomplete="off">
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterExercises('all')" class="exercise-filter bg-blue-600 text-white px-4 py-2 rounded-lg">Todos</button>
+                        <button onclick="filterExercises('chest')" class="exercise-filter bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Pecho</button>
+                        <button onclick="filterExercises('back')" class="exercise-filter bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Espalda</button>
+                        <button onclick="filterExercises('legs')" class="exercise-filter bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Piernas</button>
+                        <button onclick="filterExercises('shoulders')" class="exercise-filter bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Hombros</button>
+                        <button onclick="filterExercises('arms')" class="exercise-filter bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Brazos</button>
+                        <button onclick="filterExercises('core')" class="exercise-filter bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Abdomen</button>
+                    </div>
+                </div>
+
+                <div id="exercisesList" class="grid md:grid-cols-3 gap-4">
+                    <!-- Exercises will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section id="progress" class="section hidden">
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Mi Progreso</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="font-bold text-lg mb-4">Estadísticas Semanales</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span>Entrenamientos completados:</span>
+                                <span class="font-bold" id="weeklyWorkouts">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Tiempo total:</span>
+                                <span class="font-bold" id="weeklyTime">0 min</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Calorías quemadas:</span>
+                                <span class="font-bold" id="weeklyCaloriesDetail">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="font-bold text-lg mb-4">Registro de Entrenamientos</h3>
+                        <div id="workoutHistory" class="space-y-2 max-h-40 overflow-y-auto">
+                            <!-- Workout history will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-lg mb-4">Fotos de Progreso</h3>
+                    <div class="grid grid-cols-3 gap-4 mb-4">
+                        <div class="text-center">
+                            <div class="bg-gray-200 rounded-lg h-32 flex items-center justify-center mb-2">
+                                <i class="fas fa-camera text-gray-400 text-2xl"></i>
+                            </div>
+                            <p class="text-sm">Inicio</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-gray-200 rounded-lg h-32 flex items-center justify-center mb-2">
+                                <i class="fas fa-camera text-gray-400 text-2xl"></i>
+                            </div>
+                            <p class="text-sm">1 Mes</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-gray-200 rounded-lg h-32 flex items-center justify-center mb-2">
+                                <i class="fas fa-camera text-gray-400 text-2xl"></i>
+                            </div>
+                            <p class="text-sm">3 Meses</p>
+                        </div>
+                    </div>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                        <i class="fas fa-upload mr-2"></i>Subir Foto
+                    </button>
+                </div>
+
+                <div class="bg-green-50 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-4">Gestión de Datos</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold mb-2">Exportar Datos</h4>
+                            <p class="text-sm text-gray-600 mb-3">Descarga tu progreso y datos de entrenamiento</p>
+                            <button onclick="app.exportUserData()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition w-full">
+                                <i class="fas fa-download mr-2"></i>Exportar Datos
+                            </button>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Importar Datos</h4>
+                            <p class="text-sm text-gray-600 mb-3">Restaura tu progreso desde un backup</p>
+                            <input type="file" id="importFile" accept=".json" class="hidden" onchange="app.importFileSelected(event)">
+                            <button onclick="document.getElementById('importFile').click()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition w-full">
+                                <i class="fas fa-upload mr-2"></i>Importar Datos
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Workout Modal -->
+    <div id="workoutModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 id="modalTitle" class="text-2xl font-bold"></h3>
+                        <button onclick="closeWorkoutModal()" class="text-gray-500 hover:text-gray-700" aria-label="Close modal" tabindex="0">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div id="modalContent">
+                        <!-- Modal content will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+    
+    <!-- Error Handling Script -->
+    <script>
+        window.addEventListener('error', function(e) {
+            console.error('Global error:', e.error);
+            document.getElementById('errorBoundary').classList.remove('hidden');
+            document.getElementById('loadingScreen').classList.add('hidden');
+        });
+        
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('Unhandled promise rejection:', e.reason);
+        });
+    </script>
+    
+    <script src="script.js" defer></script>
+</body>
+</html>
